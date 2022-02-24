@@ -1,0 +1,16 @@
+[Unit]
+Description=Docker Container IPA
+After=docker.service
+Requires=docker.service
+
+[Service]
+TTYPath=/dev/tty19
+TimeoutStartSec=0
+EnvironmentFile=/opt/ipa/envs.txt
+ExecStart=/opt/ipa/run_freeipa.sh prod $domain $ip
+StandardInput=tty
+StandardOutput=journal+console
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
